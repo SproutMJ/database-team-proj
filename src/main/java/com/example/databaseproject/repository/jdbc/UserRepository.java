@@ -11,18 +11,31 @@ public class UserRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public User findByUsernameAndPassword(String username, String password) {
-        User user = jdbcTemplate.queryForObject("",
+        User user = jdbcTemplate.queryForObject(
+                "select * from USER where username=? and password=?",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"));
+                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null);
                     return newUser;
-                });
+                },
+                username, password);
+        return user;
+    }
+
+    public User findByUsername(String username) {
+        User user = jdbcTemplate.queryForObject(
+                "select * from USER where username=?",
+                (rs, row)->{
+                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null);
+                    return newUser;
+                },
+                username);
         return user;
     }
 
     public boolean existsByUsername(String username) {
         User user = jdbcTemplate.queryForObject("",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"));
+                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null);
                     return newUser;
                 });
         return user != null;

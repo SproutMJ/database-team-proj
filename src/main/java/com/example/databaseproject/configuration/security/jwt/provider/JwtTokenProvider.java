@@ -19,7 +19,7 @@ import java.util.Date;
 
 /**
  * @apiNote CustomProvider로서 토큰 생성, 토큰 검증, 헤더에서 토큰 추출, Authentication 객체로 전환 등의 책임을 가진다.
- * // TODO: 2022/09/17 refreshToken 구현 
+ * // TODO: refreshToken 구현
  */
 @Component
 public class JwtTokenProvider {

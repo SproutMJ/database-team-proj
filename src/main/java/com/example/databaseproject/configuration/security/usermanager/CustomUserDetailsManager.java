@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomUserDetailsManager implements UserDetailsManager {
+
     @Override
     public void createUser(UserDetails user) {
 
