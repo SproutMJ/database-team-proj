@@ -14,7 +14,7 @@ public class UserRepository {
         User user = jdbcTemplate.queryForObject(
                 "select * from USER where username=? and password=?",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null);
+                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null,rs.getString("address"),rs.getString("email"),rs.getString("phone"),rs.getString("job"));
                     return newUser;
                 },
                 username, password);
@@ -25,7 +25,7 @@ public class UserRepository {
         User user = jdbcTemplate.queryForObject(
                 "select * from USER where username=?",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null);
+                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null,rs.getString("address"),rs.getString("email"),rs.getString("phone"),rs.getString("job"));
                     return newUser;
                 },
                 username);
@@ -35,7 +35,7 @@ public class UserRepository {
     public boolean existsByUsername(String username) {
         User user = jdbcTemplate.queryForObject("",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null);
+                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null,rs.getString("address"),rs.getString("email"),rs.getString("phone"),rs.getString("job"));
                     return newUser;
                 });
         return user != null;
