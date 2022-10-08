@@ -11,4 +11,9 @@ public class User {
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
+
+    private String address;
+    private String email;
+    private String phone;
+    private String job;
 }

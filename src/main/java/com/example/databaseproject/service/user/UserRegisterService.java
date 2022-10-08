@@ -17,7 +17,16 @@ public class UserRegisterService {
 
     public HttpStatus userCreate(UserRegisterRequestDto userRegisterRequestDto){
         try{
-            userRepository.createUser(new User(null, userRegisterRequestDto.getUsername(), passwordEncoder.encode(userRegisterRequestDto.getPassword()), null));
+            User user=new User(
+                null,
+                userRegisterRequestDto.getUsername(),
+                passwordEncoder.encode(userRegisterRequestDto.getPassword()),
+                null,
+                userRegisterRequestDto.getAddress(),
+                userRegisterRequestDto.getEmail(),
+                userRegisterRequestDto.getPhone(),
+                userRegisterRequestDto.getJob());
+            userRepository.createUser(user);
             return HttpStatus.CREATED;
         }catch (Exception e){
             System.out.println(e);
