@@ -1,1 +1,1 @@
-web: java -jar build/libs/databaseproject-0.0.1-SNAPSHOT.jar
+web: java -jar target/databaseproject-0.0.1-SNAPSHOT.jar
