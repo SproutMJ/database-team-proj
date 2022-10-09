@@ -20,11 +20,13 @@ public class UserAuthController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/sign-up")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity userRegister(@RequestBody UserRegisterRequestDto userRegisterRequestDto){
         return ResponseEntity.status(userRegisterService.userCreate(userRegisterRequestDto)).build();
     }
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/sign-in")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<LoginTokenDto> userRegister(@RequestBody UserLoginRequestDto userLoginRequestDto){
         String token = userLoginService.login(userLoginRequestDto);
         if(token == null) return ResponseEntity.badRequest().build();
