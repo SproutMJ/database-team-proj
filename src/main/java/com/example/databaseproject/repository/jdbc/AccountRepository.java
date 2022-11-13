@@ -33,9 +33,16 @@ public class AccountRepository {
 
     public void createAccount(Account account){
         jdbcTemplate.update(
-                "insert into USER (ACCOUNT_ID, USER_ID, CREATE_DATE, CARD_APPLICATION, BALANCE, ACCOUNT_TYPE, CUSTOMER_NAME, PHONE_NUMBER, EMAIL, SOCIAL_NUMBER) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "insert into Account (ACCOUNT_ID, USER_ID, CREATE_DATE, CARD_APPLICATION, BALANCE, ACCOUNT_TYPE, CUSTOMER_NAME, PHONE_NUMBER, EMAIL, SOCIAL_NUMBER) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 account.getAccountId(), account.getUserId(), account.getCreateDate(), account.isCardRegistered(), account.getBalance(), account.getAccountType(), account.getCustomerName(), account.getPhoneNumber(), account.getEmail(), account.getSocialNumber()
         );
+    }
+
+    public void updateBalance(Long accountId, Long balance){
+        jdbcTemplate.update(
+                "update account set BALANCE=BALANCE+? where ID=?",
+                balance, accountId
+                );
     }
     
     //// TODO: 2022-10-12 추후 추가
