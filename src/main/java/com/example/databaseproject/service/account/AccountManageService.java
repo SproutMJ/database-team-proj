@@ -30,7 +30,7 @@ public class AccountManageService {
                 .phoneNumber(createAccountRequestDto.getPhoneNumber())
                 .email(createAccountRequestDto.getEmail())
                 .socialNumber(createAccountRequestDto.getSocialNumber())
-                .accountId(createAccountRequestDto.getAccountType().toString()+Instant.now())
+                .accountId(createAccountRequestDto.getAccountType().toString()+Instant.now()) // (?)
                 .userId(7L/*하드코딩*/)
                 .createDate(Date.from(Instant.now()))
                 .balance(0L)
