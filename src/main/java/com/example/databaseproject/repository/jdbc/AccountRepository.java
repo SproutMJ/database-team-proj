@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class AccountRepository {
@@ -29,6 +31,26 @@ public class AccountRepository {
                         .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
                         .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
                 accountId);
+    }
+
+    public Account findByUsernameAndAccountNumber(String username, Long accountNumber){
+        List<Account> accounts = jdbcTemplate.query(
+                "select * from Account where USERNAME = ?",
+                (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
+                        .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
+                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
+                username);
+        return accounts.get(Math.toIntExact(accountNumber));
+    }
+
+    public List<Account> findByUsername(String username){
+        List<Account> accounts = jdbcTemplate.query(
+                "select * from Account where USERNAME = ?",
+                (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
+                        .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
+                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
+                username);
+        return accounts;
     }
 
     public void createAccount(Account account){
