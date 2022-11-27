@@ -7,13 +7,13 @@ import java.util.Collection;
 
 @Value
 public class User {
-    private Long id;
-    private String username;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
-
-    private String address;
-    private String email;
-    private String phone;
-    private String job;
+    private Long id;            // 예금 계좌 ID
+    private String username;    // 고객명
+    private String password;    // 비밀번호
+    private Collection<? extends GrantedAuthority> authorities; // 권한(?)
+    private String address;     // 고객 주소
+    private String email;       // 고객 이메일
+    private String phone;       // 고객 전화번호
+    private String job;         // 고객 직업
+    // 고객 생년월일(?)
 }
