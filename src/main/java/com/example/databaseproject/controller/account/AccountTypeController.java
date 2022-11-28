@@ -1,8 +1,6 @@
 package com.example.databaseproject.controller.account;
 
-import com.example.databaseproject.dto.account.request.CreateAccountRequestDto;
 import com.example.databaseproject.dto.account.request.CreateAccountTypeRequestDto;
-import com.example.databaseproject.dto.auth.request.UserRegisterRequestDto;
 import com.example.databaseproject.service.account.AccountTypeManageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

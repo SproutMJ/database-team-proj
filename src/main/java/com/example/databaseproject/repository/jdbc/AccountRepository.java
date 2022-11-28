@@ -15,8 +15,8 @@ public class AccountRepository {
         return jdbcTemplate.queryForObject(
                 "select * from Account where ID = ?",
                 (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
-                        .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
-                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
+                        .cardApply(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
+                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).build(),
                 id);
     }
 
@@ -28,8 +28,8 @@ public class AccountRepository {
         return jdbcTemplate.queryForObject(
                 "select * from Account where ACCOUNT_ID = ?",
                 (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
-                        .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
-                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
+                        .cardApply(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
+                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).build(),
                 accountId);
     }
 
@@ -37,8 +37,8 @@ public class AccountRepository {
         List<Account> accounts = jdbcTemplate.query(
                 "select * from Account where USERNAME = ?",
                 (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
-                        .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
-                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
+                        .cardApply(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
+                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).build(),
                 username);
         return accounts.get(Math.toIntExact(accountNumber));
     }
@@ -47,8 +47,8 @@ public class AccountRepository {
         List<Account> accounts = jdbcTemplate.query(
                 "select * from Account where USERNAME = ?",
                 (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
-                        .cardRegistered(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
-                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).socialNumber(rs.getString("SOCIAL_NUMBER")).build(),
+                        .cardApply(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).customerName(rs.getString("CUSTOMER_NAME"))
+                        .phoneNumber(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).build(),
                 username);
         return accounts;
     }
@@ -56,7 +56,7 @@ public class AccountRepository {
     public void createAccount(Account account){
         jdbcTemplate.update(
                 "insert into Account (ACCOUNT_ID, USER_ID, CREATE_DATE, CARD_APPLICATION, BALANCE, ACCOUNT_TYPE, CUSTOMER_NAME, PHONE_NUMBER, EMAIL, SOCIAL_NUMBER) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                account.getAccountId(), account.getUserId(), account.getCreateDate(), account.isCardRegistered(), account.getBalance(), account.getAccountType(), account.getCustomerName(), account.getPhoneNumber(), account.getEmail(), account.getSocialNumber()
+                account.getAccountId(), account.getUserId(), account.getCreateDate(), account.isCardApply(), account.getBalance(), account.getAccountType(), account.getCustomerName(), account.getPhoneNumber(), account.getEmail()
         );
     }
 
