@@ -1,14 +1,16 @@
 package com.example.databaseproject.domain.user;
 
+import lombok.Builder;
 import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 import java.util.Date;
 
+@Builder
 @Value
 public class User {
-    private String username;        // 고객 이름
+    private String name;        // 고객 이름
     private String address;         // 고객 주소
     private String email;           // 고객 이메일
     private String phone;           // 고객 전화번호
