@@ -1,1 +1,0 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/databaseproject-0.0.1-SNAPSHOT.jar
