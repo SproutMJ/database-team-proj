@@ -35,8 +35,6 @@ public class QueryController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/query")
     public ResponseEntity showUsersByQuery(@RequestParam("birthday") String birthday){
-        Map<String, String> queryType = new HashMap<>();
-
-
+        return null;
     }
 }
