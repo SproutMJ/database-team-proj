@@ -2,7 +2,6 @@ package com.example.databaseproject.domain.user;
 
 import lombok.Builder;
 import lombok.Value;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 import java.util.Date;

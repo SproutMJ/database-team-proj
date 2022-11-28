@@ -23,19 +23,19 @@ public class AccountManageService {
     private final AccountRecordRepository accountRecordRepository;
 
     public void createAccount(CreateAccountRequestDto createAccountRequestDto){
-        accountRepository.createAccount(Account.builder()
-                .cardRegistered(createAccountRequestDto.isCardRegistered())
-                .accountType(createAccountRequestDto.getAccountType())
-                .customerName(createAccountRequestDto.getCustomerName())
-                .phoneNumber(createAccountRequestDto.getPhoneNumber())
-                .email(createAccountRequestDto.getEmail())
-                .socialNumber(createAccountRequestDto.getSocialNumber())
-                .accountId(createAccountRequestDto.getAccountType().toString()+Instant.now()) // (?)
-                .userId(7L/*하드코딩*/)
-                .createDate(Date.from(Instant.now()))
-                .balance(0L)
-                .build()
-        );
+//        accountRepository.createAccount(Account.builder()
+//                .cardApply(createAccountRequestDto.getCardApply())
+//                .accountType(createAccountRequestDto.getAccountType())
+//                .customerName(createAccountRequestDto.getCustomerName())
+//                .phoneNumber(createAccountRequestDto.getPhoneNumber())
+//                .email(createAccountRequestDto.getEmail())
+//                .socialNumber(createAccountRequestDto.getSocialNumber())
+//                .accountId(createAccountRequestDto.getAccountType().toString()+Instant.now()) // (?)
+//                .userId(7L/*하드코딩*/)
+//                .createDate(Date.from(Instant.now()))
+//                .balance(0L)
+//                .build()
+//        );
     }
 
     public void remittance(RemittanceDto remittanceDto){

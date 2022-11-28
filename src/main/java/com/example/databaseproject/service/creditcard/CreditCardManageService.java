@@ -7,6 +7,9 @@ import com.example.databaseproject.repository.jdbc.CreditCardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
+
 @RequiredArgsConstructor
 @Service
 public class CreditCardManageService {
@@ -14,12 +17,11 @@ public class CreditCardManageService {
 
     public void createCreditCard(CreateCreditCardRequestDto createCreditCardRequestDto){
         creditCardRepository.createCreditCard(CreditCard.builder()
-                .cardNumber(createCreditCardRequestDto.getCardNumber())
-                .applicationDate(createCreditCardRequestDto.getApplicationDate())
-                .limitAmount(createCreditCardRequestDto.getLimitAmount())
-                .paymentDate(createCreditCardRequestDto.getPaymentDate())
+                .cardId("1234-5678")
+                .createDate(Date.from(Instant.now()))
+                .payLimit(createCreditCardRequestDto.getPayLimit())
+                .payAmount(0L)
                 .cardType(createCreditCardRequestDto.getCardType())
-                .socialNumber(createCreditCardRequestDto.getSocialNumber())
                 .build()
         );
     }
