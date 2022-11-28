@@ -6,9 +6,9 @@ import lombok.Data;
 @Builder
 @Data
 public class AccountType {
-    private Long id;                // 예금 계좌 ID
-    private String description;     // 예금 내용
-    private double interestRate;    // 이자
-    private String name;            // 예금자 이름
+    private Long id;                // 고유 번호
+    private String description;     // 거래 내용
+    private double interestRate;    // 게좌 이자율
+    private String name;            // 고객 이름
 
 }
