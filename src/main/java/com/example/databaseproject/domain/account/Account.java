@@ -8,15 +8,14 @@ import java.util.Date;
 @Builder
 @Data
 public class Account {
-    private Long id;                // 예금 계좌 ID(?)
-    private String accountId;       // ID (?)
-    private Long userId;            // 사용자 ID (?)
-    private Date createDate;        // 예금 개설 일자
-    private boolean cardRegistered; // 카드 신청 여부
-    private Long balance;           // 예금 잔고
-    private Long accountType;       // 예금 계좌 종류
-    private String customerName;    // 예금자 이름
-    private String phoneNumber;     // 전화번호
-    private String email;           // 이메일
-    private String socialNumber;    // 고객 주민 번호
+    private String accountId;           // 계좌번호
+    private Long userId;                // 유저 ID
+    private Date createDate;            // 계좌 발급일
+    private boolean cardApply;          // 카드 신청 여부
+    private Long balance;               // 계좌 잔고
+    private Long accountType;           // 계좌 타입
+    private String customerName;        // 계좌 고객 이름
+    private String phoneNumber;         // 고객 전화번호
+    private String email;               // 고객 이메일
+    private Long id;                    // 고유 번호
 }
