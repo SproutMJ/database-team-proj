@@ -7,7 +7,6 @@ import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
 import com.example.databaseproject.repository.jdbc.AccountRepository;
 import com.example.databaseproject.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,46 +19,35 @@ public class QueryService {
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
 
-    public OwnerAccountsDTO showOwnerAccounts(String ownerName){
+    public List<User> showUsers(String name){
+        List<User> users = userRepository.findByName(name);
+        return users;
+    }
+
+    public List<Account> showOwnerAccounts(String ownerName){
         List<Account> accounts = accountRepository.findByUsername(ownerName);
-        OwnerAccountsDTO ownerAccountsDTO = OwnerAccountsDTO.builder()
-                .ownerName(ownerName)
-                .accountInfoDTOs(accounts.stream().map((a)->{
-                    return AccountInfoDTO.builder()
-                            .accountId(a.getAccountId())
-                            .createDate(a.getCreateDate())
-                            .cardRegistered(a.isCardRegistered())
-                            .balance(a.getBalance())
-                            .customerName(ownerName)
-                            .phoneNumber(a.getPhoneNumber())
-                            .email(a.getEmail())
-                            .socialNumber(a.getSocialNumber())
-                            .accountTypeDTO(null)
-                            .accountRecords(null)
-                            .build();
-                }).collect(Collectors.toList()))
-                .build();
-        return ownerAccountsDTO;
+        accounts.stream().forEach(e->System.out.println(e));
+        return accounts;
     }
 
     public AccountInfoDTO showAccountByOwnerAndAccountNumber(String owner, Long accountNumber){
         Account account = accountRepository.findByUsernameAndAccountNumber(owner, accountNumber);
-        AccountInfoDTO accountInfoDTO = AccountInfoDTO.builder()
-                .accountId(account.getAccountId())
-                .createDate(account.getCreateDate())
-                .cardRegistered(account.isCardRegistered())
-                .balance(account.getBalance())
-                .customerName(account.getCustomerName())
-                .phoneNumber(account.getPhoneNumber())
-                .email(account.getEmail())
-                .socialNumber(account.getSocialNumber())
-                .accountTypeDTO(null)
-                .accountRecords(null)
-                .build();
-        return accountInfoDTO;
+//        AccountInfoDTO accountInfoDTO = AccountInfoDTO.builder()
+//                .accountId(account.getAccountId())
+//                .createDate(account.getCreateDate())
+//                .cardRegistered(account.isCardRegistered())
+//                .balance(account.getBalance())
+//                .customerName(account.getCustomerName())
+//                .phoneNumber(account.getPhoneNumber())
+//                .email(account.getEmail())
+//                .socialNumber(account.getSocialNumber())
+//                .accountTypeDTO(null)
+//                .accountRecords(null)
+//                .build();
+        return null;
     }
 
     public List<User> showUsers(Map<String, String> queryType){
-
+        return null;
     }
 }

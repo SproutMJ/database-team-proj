@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class UserRepository {
@@ -14,28 +16,37 @@ public class UserRepository {
         User user = jdbcTemplate.queryForObject(
                 "select * from USER where username=? and password=?",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null,rs.getString("address"),rs.getString("email"),rs.getString("phone"),rs.getString("job"));
+                    User newUser = null;
                     return newUser;
                 },
                 username, password);
         return user;
     }
 
-    public User findByUsername(String username) {
-        User user = jdbcTemplate.queryForObject(
-                "select * from USER where username=?",
+    public List<User> findByName(String name) {
+        List<User> users = jdbcTemplate.query(
+                "select * from USER where name=?",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null,rs.getString("address"),rs.getString("email"),rs.getString("phone"),rs.getString("job"));
+                    User newUser = User.builder()
+                            .id(rs.getLong("ID"))
+                            .name(rs.getString("name"))
+                            .address(rs.getString("address"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .job(rs.getString("job"))
+                            .birthday(rs.getDate("birthday"))
+                            .socialNumber(rs.getString("social_number"))
+                            .build();
                     return newUser;
                 },
-                username);
-        return user;
+                name);
+        return users;
     }
 
     public boolean existsByUsername(String username) {
         User user = jdbcTemplate.queryForObject("",
                 (rs, row)->{
-                    User newUser = new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), null,rs.getString("address"),rs.getString("email"),rs.getString("phone"),rs.getString("job"));
+            User newUser = null;
                     return newUser;
                 });
         return user != null;
@@ -44,14 +55,7 @@ public class UserRepository {
     public void createUser(User user) {
         jdbcTemplate.update(
                 "insert into USER (username, password) values (?, ?)",
-                user.getUsername(), user.getPassword()
-        );
-    }
-
-    public void deleteUser(User user) {
-        jdbcTemplate.update(
-                "delete from USER where username=?",
-                user.getUsername()
+                null, null
         );
     }
 }

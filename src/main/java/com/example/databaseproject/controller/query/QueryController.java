@@ -1,5 +1,7 @@
 package com.example.databaseproject.controller.query;
 
+import com.example.databaseproject.domain.account.Account;
+import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.request.CreateAccountRequestDto;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -19,10 +22,17 @@ public class QueryController {
     private final QueryService queryService;
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/users/{name}")
+    public ResponseEntity showUser(@PathVariable String name){
+        List<User> users = queryService.showUsers(name);
+        return ResponseEntity.ok(users);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/accounts/{owner}")
     public ResponseEntity showAccountsByOwner(@PathVariable String owner){
-        OwnerAccountsDTO ownerAccountsDTO = queryService.showOwnerAccounts(owner);
-        return ResponseEntity.ok(ownerAccountsDTO);
+        List<Account> accounts = queryService.showOwnerAccounts(owner);
+        return ResponseEntity.ok(accounts);
     }
 
     @ResponseStatus(HttpStatus.OK)

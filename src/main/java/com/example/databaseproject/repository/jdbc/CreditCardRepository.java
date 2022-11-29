@@ -13,15 +13,14 @@ public class CreditCardRepository {
 
     // 카드 번호에 해당하는 카드 모든 정보 찾기
     public CreditCard findById(Long cardNumber){
-        return jdbcTemplate.queryForObject(
-          "select * from CreditCard where CARD_NUMBER = ?",
-                (rs, rowNum) -> CreditCard.builder().id(rs.getLong("ID"))
-                        .applicationDate(rs.getString("APPLICATION_DATE"))
-                        .limitAmount(rs.getLong("LIMIT_AMOUNT"))
-                        .paymentDate(rs.getString("PAYMENT_DATE"))
-                        .cardType(rs.getString("CARD_TYPE"))
-                        .socialNumber((rs.getString("SOCIAL_NUMBER"))).build(), cardNumber
-        );
+//        return jdbcTemplate.queryForObject(
+//          "select * from CreditCard where CARD_NUMBER = ?",
+//                (rs, rowNum) -> CreditCard.builder().id(rs.getLong("ID"))
+//                        .createDate(rs.getDate("APPLICATION_DATE"))
+//                        .payLimit(rs.getLong("LIMIT_AMOUNT"))
+//                        .cardType(rs.getString("CARD_TYPE"))
+//        );
+        return null;
     }
 
     // 새로운 카드 발급
@@ -30,8 +29,7 @@ public class CreditCardRepository {
                 "insert into CreditCard (ID, CARD_NUMBER, " +
                         "APPLICATION_DATE, LIMIT_AMOUNT, PAYMENT_DATE, " +
                         "CARD_TYPE, SOCIAL_NUMBER) VALUES (?, ?, ?, ?, ?, ?)",
-                creditCard.getCardNumber(), creditCard.getApplicationDate(), creditCard.getLimitAmount(),
-                creditCard.getPaymentDate(), creditCard.getCardType(), creditCard.getSocialNumber()
+                creditCard.getCardId(), creditCard.getCreateDate(), creditCard.getPayLimit()
         );
     }
 
@@ -47,7 +45,7 @@ public class CreditCardRepository {
     public CreditCard findLimitAmount(Long cardNumber){
         return jdbcTemplate.queryForObject(
                 "select LIMIT_AMOUNT from CreditCard where CARD_NUMBER = ?",
-                (rs, rowNum) -> CreditCard.builder().limitAmount(rs.getLong("LIMIT_AMOUNT")).build(), cardNumber
+                (rs, rowNum) -> CreditCard.builder().payLimit(rs.getLong("LIMIT_AMOUNT")).build(), cardNumber
         );
     }
 
