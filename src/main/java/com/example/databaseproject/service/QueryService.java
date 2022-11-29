@@ -19,6 +19,11 @@ public class QueryService {
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
 
+    public List<User> showUsers(String name){
+        List<User> users = userRepository.findByName(name);
+        return users;
+    }
+
     public List<Account> showOwnerAccounts(String ownerName){
         List<Account> accounts = accountRepository.findByUsername(ownerName);
         accounts.stream().forEach(e->System.out.println(e));

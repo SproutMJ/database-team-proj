@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class UserRepository {
@@ -21,15 +23,24 @@ public class UserRepository {
         return user;
     }
 
-    public User findByUsername(String username) {
-        User user = jdbcTemplate.queryForObject(
-                "select * from USER where username=?",
+    public List<User> findByName(String name) {
+        List<User> users = jdbcTemplate.query(
+                "select * from USER where name=?",
                 (rs, row)->{
-                    User newUser = null;
+                    User newUser = User.builder()
+                            .id(rs.getLong("ID"))
+                            .name(rs.getString("name"))
+                            .address(rs.getString("address"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .job(rs.getString("job"))
+                            .birthday(rs.getDate("birthday"))
+                            .socialNumber(rs.getString("social_number"))
+                            .build();
                     return newUser;
                 },
-                username);
-        return user;
+                name);
+        return users;
     }
 
     public boolean existsByUsername(String username) {

@@ -1,6 +1,7 @@
 package com.example.databaseproject.controller.query;
 
 import com.example.databaseproject.domain.account.Account;
+import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.request.CreateAccountRequestDto;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
@@ -19,6 +20,13 @@ import java.util.Map;
 @RestController
 public class QueryController {
     private final QueryService queryService;
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/users/{name}")
+    public ResponseEntity showUser(@PathVariable String name){
+        List<User> users = queryService.showUsers(name);
+        return ResponseEntity.ok(users);
+    }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/accounts/{owner}")
