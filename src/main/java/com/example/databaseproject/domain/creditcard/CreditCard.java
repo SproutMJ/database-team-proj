@@ -16,4 +16,5 @@ public class CreditCard {
     private Date createDate;        // 카드 발급일
     private Long payAmount;         // 카드 사용 금액
     private Long id;                // 고유 번호
+
 }

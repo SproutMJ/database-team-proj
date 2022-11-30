@@ -11,11 +11,13 @@ import org.springframework.stereotype.Repository;
 public class AccountRecordRepository {
     private final JdbcTemplate jdbcTemplate;
 
-
-    public void insertRecord(AccountRecord accountRecord){
+    // 계좌 거래 기록 생성
+    public void insertAccountRecord(AccountRecord accountRecord){
         jdbcTemplate.update(
-                "insert into account_record (description, amount, deposit, withdraw, transfer_date) values (?, ?, ?, ?, ?)",
-                accountRecord.getDescription(), accountRecord.getAmount(), accountRecord.getDepositId(), accountRecord.getWithdrawId(), accountRecord.getTransferDate()
+                "insert into ACCOUNT_RECORD (DESC, AMOUNT, DEPOSIT_ACCOUNT, WITHDRAW_ACCOUNT, DATE) " +
+                        "values (?, ?, ?, ?, ?)",
+                accountRecord.getDescription(), accountRecord.getAmount(), accountRecord.getDepositId(),
+                accountRecord.getWithdrawId(), accountRecord.getTransferDate()
         );
     }
 }

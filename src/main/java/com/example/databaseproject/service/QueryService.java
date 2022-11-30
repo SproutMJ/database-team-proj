@@ -19,16 +19,19 @@ public class QueryService {
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
 
+    // 유저 이름에 따른 유저 정보 출력
     public List<User> showUsers(String name){
         List<User> users = userRepository.findByName(name);
         return users;
     }
 
+    // 유저 이름에 따른 계좌 정보 출력
     public List<Account> showOwnerAccounts(String ownerName){
         List<Account> accounts = accountRepository.findByUsername(ownerName);
         accounts.stream().forEach(e->System.out.println(e));
         return accounts;
     }
+
 
     public AccountInfoDTO showAccountByOwnerAndAccountNumber(String owner, Long accountNumber){
         Account account = accountRepository.findByUsernameAndAccountNumber(owner, accountNumber);

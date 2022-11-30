@@ -48,9 +48,4 @@ public class CreditCardRepository {
                 (rs, rowNum) -> CreditCard.builder().payLimit(rs.getLong("LIMIT_AMOUNT")).build(), cardNumber
         );
     }
-
-    // 총 카드 사용 금액
-//    public CreditCard findAmountUsed(){
-
-//    }
 }

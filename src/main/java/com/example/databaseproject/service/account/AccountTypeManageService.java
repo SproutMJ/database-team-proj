@@ -14,6 +14,11 @@ public class AccountTypeManageService {
 
 
     public void createAccountType(CreateAccountTypeRequestDto dto){
-        accountTypeRepository.createAccountType(AccountType.builder().description(dto.getDescription()).interestRate(dto.getInterestRate()).name(dto.getName()).build());
+        accountTypeRepository.createAccountType(AccountType.builder()
+                .description(dto.getDescription())
+                .interestRate(dto.getInterestRate())
+                .name(dto.getName())
+                .build()
+        );
     }
 }
