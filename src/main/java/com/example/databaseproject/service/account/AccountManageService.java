@@ -41,7 +41,7 @@ public class AccountManageService {
     public void remittance(RemittanceDto remittanceDto){
         accountRepository.updateBalance(remittanceDto.getWithdraw(), -remittanceDto.getAmount());
         accountRepository.updateBalance(remittanceDto.getDeposit(), remittanceDto.getAmount());
-        accountRecordRepository.insertRecord(
+        accountRecordRepository.insertAccountRecord(
                 AccountRecord.builder()
                         .description(remittanceDto.getDescription())
                         .amount(remittanceDto.getAmount())

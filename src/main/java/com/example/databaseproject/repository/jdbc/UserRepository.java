@@ -23,6 +23,7 @@ public class UserRepository {
         return user;
     }
 
+    // 유저 이름에 따른 유저 정보 찾기
     public List<User> findByName(String name) {
         List<User> users = jdbcTemplate.query(
                 "select * from USER where name=?",

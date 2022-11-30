@@ -14,9 +14,9 @@ public class Account {
     private boolean cardApply;          // 카드 신청 여부
     private Long balance;               // 계좌 잔고
     private Long accountType;           // 계좌 타입
-    private String userName;        // 계좌 고객 이름
-    private String phone;         // 고객 전화번호
+    private String userName;            // 계좌 고객 이름
+    private String phone;               // 고객 전화번호
     private String email;               // 고객 이메일
+    private String socialNumber;        // 고객 주민번호
     private Long id;                    // 고유 번호
-    private String socialNumber;
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public class AccountTypeRepository {
     private final JdbcTemplate jdbcTemplate;
 
+    // 계좌 타입 생성
     public void createAccountType(AccountType accountType) {
         jdbcTemplate.update(
                 "insert into ACCOUNT_TYPE (DESCRIPTION, INTEREST_RATE, NAME) values (?, ?, ?)",
