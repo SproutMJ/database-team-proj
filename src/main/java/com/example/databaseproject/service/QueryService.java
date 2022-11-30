@@ -24,9 +24,8 @@ public class QueryService {
         return users;
     }
 
-    public List<Account> showOwnerAccounts(String ownerName){
-        List<Account> accounts = accountRepository.findByUsername(ownerName);
-        accounts.stream().forEach(e->System.out.println(e));
+    public List<Account> showUserHaveAccounts(Long userNo){
+        List<Account> accounts = accountRepository.findByUserId(userNo);
         return accounts;
     }
 
@@ -49,5 +48,9 @@ public class QueryService {
 
     public List<User> showUsers(Map<String, String> queryType){
         return null;
+    }
+
+    public AccountInfoDTO showAccountInfo(Long accountNo) {
+        return accountRepository.infoFindById(accountNo);
     }
 }

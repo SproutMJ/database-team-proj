@@ -11,28 +11,17 @@ import java.util.List;
 @Builder
 @Data
 public class AccountInfoDTO {
+    private Long id;
     private String accountId;
     private Date createDate;
-    private boolean cardRegistered;
+    private Long cardApply;
     private Long balance;
-    private String customerName;
-    private String phoneNumber;
+    private String userName;
+    private String phone;
     private String email;
     private String socialNumber;
-    private AccountTypeDTO accountTypeDTO;
+    private String typeName;
+    private Double interestRate;
+    private String typeDesc;
     private List<AccountRecord> accountRecords;
-
-    public class AccountRecordDTO {
-        private String description;
-        private Long amount;
-        private Long depositId;
-        private Long withdrawId;
-        private LocalDateTime transferDate;
-    }
-
-    public class AccountTypeDTO {
-        private String description;
-        private double interestRate;
-        private String name;
-    }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,22 +30,22 @@ public class QueryController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/accounts/{owner}")
-    public ResponseEntity showAccountsByOwner(@PathVariable String owner){
-        List<Account> accounts = queryService.showOwnerAccounts(owner);
+    @GetMapping("/users/{userNo}/accounts")
+    public ResponseEntity showUserHaveAccounts(@PathVariable Long userNo){
+        List<Account> accounts = queryService.showUserHaveAccounts(userNo);
         return ResponseEntity.ok(accounts);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/accounts/{owner}/{accountNumber}")
-    public ResponseEntity showAccountByOwnerAndAccountNumber(@PathVariable String owner, @PathVariable Long accountNumber){
-        AccountInfoDTO accountInfoDTO = queryService.showAccountByOwnerAndAccountNumber(owner, accountNumber);
+    @GetMapping("/accountInfo/{accountNo}")
+    public ResponseEntity showAccountInfo(@PathVariable Long accountNo){
+        AccountInfoDTO accountInfoDTO = queryService.showAccountInfo(accountNo);
         return ResponseEntity.ok(accountInfoDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/query")
-    public ResponseEntity showUsersByQuery(@RequestParam("birthday") String birthday){
+    public ResponseEntity showUsersByQuery(@RequestParam("birthday") Date birthday){
         return null;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.databaseproject.repository.jdbc;
 
 import com.example.databaseproject.domain.account.Account;
+import com.example.databaseproject.domain.account.AccountRecord;
+import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,25 @@ public class AccountRepository {
                 (rs, row)-> Account.builder().id(rs.getLong("ID")).accountId(rs.getString("ACCOUNT_ID")).userId(rs.getLong("USER_ID")).createDate(rs.getDate("CREATE_DATE"))
                         .cardApply(rs.getBoolean("CARD_APPLICATION")).balance(rs.getLong("BALANCE")).accountType(rs.getLong("ACCOUNT_TYPE")).userName(rs.getString("CUSTOMER_NAME"))
                         .phone(rs.getString("PHONE_NUMBER")).email(rs.getString("EMAIL")).build(),
+                id);
+    }
+
+    public List<Account> findByUserId(Long id){
+        return jdbcTemplate.query(
+                "select * from Account where user = ?",
+                (rs, row)-> Account.builder()
+                        .id(rs.getLong("ID"))
+                        .accountId(rs.getString("ACCOUNT_ID"))
+                        .userId(rs.getLong("USER"))
+                        .createDate(rs.getDate("CREATE_DATE"))
+                        .cardApply(rs.getBoolean("CARD_APPLY"))
+                        .balance(rs.getLong("BALANCE"))
+                        .accountType(rs.getLong("TYPE"))
+                        .userName(rs.getString("USER_NAME"))
+                        .phone(rs.getString("PHONE"))
+                        .email(rs.getString("EMAIL"))
+                        .socialNumber(rs.getString("social_number"))
+                        .build(),
                 id);
     }
 
@@ -68,4 +89,46 @@ public class AccountRepository {
     }
     
     //// TODO: 2022-10-12 추후 추가
+
+    public AccountInfoDTO infoFindById (Long accountNo){
+        AccountInfoDTO infoDTO = jdbcTemplate.queryForObject(
+                "select * from user, account, account_type\n" +
+                        "where account.ID = ? and\n" +
+                        "        user.id = account.user and\n" +
+                        "        account_type.ID = account.type\n" +
+                        "order by account.create_date"
+                , (rs, row)->AccountInfoDTO.builder()
+                        .id(rs.getLong("account.ID"))
+                        .accountId(rs.getString("account_id"))
+                        .createDate(rs.getDate("CREATE_DATE"))
+                        .cardApply(rs.getLong("card_apply"))
+                        .balance(rs.getLong("BALANCE"))
+                        .userName(rs.getString("user.name"))
+                        .phone(rs.getString("phone"))
+                        .email(rs.getString("email"))
+                        .socialNumber("social_number")
+                        .typeName(rs.getString("account_type.name"))
+                        .interestRate(rs.getDouble("INTEREST_RATE"))
+                        .typeDesc(rs.getString("DESCRIPTION"))
+                        .build()
+                , accountNo
+        );
+
+        List<AccountRecord> records = jdbcTemplate.query(
+                "select account_record.* from account, account_record\n" +
+                        "where account.ID = account_record.deposit_account or\n" +
+                        "      account.ID = account_record.withdraw_account and\n" +
+                        "      account.ID = ?\n" +
+                        "order by account_record.date;",
+                (rs, row)->AccountRecord.builder()
+                        .state(((infoDTO.getId() == rs.getLong("deposit_account"))?"입급":"출금"))
+                        .amount(rs.getLong("amount"))
+                        .description(rs.getString("desc"))
+                        .transferDate(rs.getTimestamp("date").toLocalDateTime())
+                        .build()
+                ,accountNo
+        );
+        infoDTO.setAccountRecords(records);
+        return infoDTO;
+    }
 }
