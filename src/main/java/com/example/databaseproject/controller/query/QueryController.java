@@ -1,6 +1,7 @@
 package com.example.databaseproject.controller.query;
 
 import com.example.databaseproject.domain.account.Account;
+import com.example.databaseproject.domain.creditcard.CreditCard;
 import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.request.CreateAccountRequestDto;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
@@ -41,6 +42,19 @@ public class QueryController {
     public ResponseEntity showAccountInfo(@PathVariable Long accountNo){
         AccountInfoDTO accountInfoDTO = queryService.showAccountInfo(accountNo);
         return ResponseEntity.ok(accountInfoDTO);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/users/{userNo}/cards")
+    public ResponseEntity showUserHaveCards(@PathVariable Long userNo){
+        List<CreditCard> creditCards = queryService.showUserHaveCards(userNo);
+        return ResponseEntity.ok(creditCards);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/cardInfo/{cardNo}")
+    public ResponseEntity showCardInfo(@PathVariable Long cardNo){
+        return null;
     }
 
     @ResponseStatus(HttpStatus.OK)

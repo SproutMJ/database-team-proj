@@ -2,9 +2,13 @@ package com.example.databaseproject.repository.jdbc;
 
 //import com.example.databaseproject.domain.account.Account;
 import com.example.databaseproject.domain.creditcard.CreditCard;
+import com.example.databaseproject.domain.creditcard.CreditCardRecord;
+import com.example.databaseproject.dto.creditcard.response.CreditCardInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
@@ -21,6 +25,27 @@ public class CreditCardRepository {
 //                        .cardType(rs.getString("CARD_TYPE"))
 //        );
         return null;
+    }
+
+    public List<CreditCard> findByUserId(Long userId){
+        List<CreditCard> creditCards = jdbcTemplate.query(
+                "select * from user, card, card_type\n" +
+                        "where card.ID = ? and\n" +
+                        "        user.id = card.user and\n" +
+                        "        card_type.ID = card.card_type\n" +
+                        "order by card.create_date"
+                ,(rs,row)->CreditCard.builder()
+                        .id(rs.getLong("card.ID"))
+                        .userId(rs.getLong("user"))
+                        .account(rs.getLong("account"))
+                        .cardType(rs.getString("card_type.name"))
+                        .payLimit(rs.getLong("pay_limit"))
+                        .createDate(rs.getDate("create_date"))
+                        .payAmount(rs.getLong("pay_amount"))
+                        .build()
+                , userId
+        );
+        return creditCards;
     }
 
     // 새로운 카드 발급
@@ -53,4 +78,30 @@ public class CreditCardRepository {
 //    public CreditCard findAmountUsed(){
 
 //    }
+
+    public CreditCardInfoDTO findInfoById(Long cardNo){
+        CreditCardInfoDTO infoDTO = jdbcTemplate.queryForObject(
+                "select * from user, card, card_type\n" +
+                        "where card.ID = ? and\n" +
+                        "        user.id = card.user and\n" +
+                        "        card_type.ID = card.card_type\n" +
+                        "order by card.create_date"
+                , (rs, row)->CreditCardInfoDTO.builder()
+                        .build()
+                ,cardNo
+        );
+
+        List<CreditCardRecord> creditCardRecords = jdbcTemplate.query(
+                "select card_record.* from card, card_record\n" +
+                        "   where card.ID = card_record.card and\n" +
+                        "   card.ID = ?\n" +
+                        "   order by card_record.pay_date"
+                , (rs, row)->CreditCardRecord.builder()
+                        .build()
+                ,cardNo
+        );
+
+        infoDTO.setCreditCardRecords(creditCardRecords);
+        return infoDTO;
+    }
 }

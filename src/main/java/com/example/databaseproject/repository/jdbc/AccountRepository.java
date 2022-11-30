@@ -24,7 +24,10 @@ public class AccountRepository {
 
     public List<Account> findByUserId(Long id){
         return jdbcTemplate.query(
-                "select * from Account where user = ?",
+                "select * from user, account\n" +
+                        "where user.id = ? and\n" +
+                        "        user.id = account.user\n" +
+                        "order by account.create_date",
                 (rs, row)-> Account.builder()
                         .id(rs.getLong("ID"))
                         .accountId(rs.getString("ACCOUNT_ID"))
@@ -33,7 +36,7 @@ public class AccountRepository {
                         .cardApply(rs.getBoolean("CARD_APPLY"))
                         .balance(rs.getLong("BALANCE"))
                         .accountType(rs.getLong("TYPE"))
-                        .userName(rs.getString("USER_NAME"))
+                        .userName(rs.getString("NAME"))
                         .phone(rs.getString("PHONE"))
                         .email(rs.getString("EMAIL"))
                         .socialNumber(rs.getString("social_number"))
