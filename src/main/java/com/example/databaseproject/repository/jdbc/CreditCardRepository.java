@@ -20,15 +20,24 @@ public class CreditCardRepository {
     private final JdbcTemplate jdbcTemplate;
 
     // 카드 번호에 해당하는 카드 모든 정보 찾기
-    public CreditCard findById(Long cardNumber){
-//        return jdbcTemplate.queryForObject(
-//          "select * from CreditCard where CARD_NUMBER = ?",
-//                (rs, rowNum) -> CreditCard.builder().id(rs.getLong("ID"))
-//                        .createDate(rs.getDate("APPLICATION_DATE"))
-//                        .payLimit(rs.getLong("LIMIT_AMOUNT"))
-//                        .cardType(rs.getString("CARD_TYPE"))
-//        );
-        return null;
+    public CreditCard findByCardNumber(String cardNumber){
+        CreditCard card = jdbcTemplate.queryForObject(
+                "select * from card, card_type\n" +
+                        "where card.card_type = card_type.id and\n" +
+                        "      card_number = ?"
+                ,(rs,row)->CreditCard.builder()
+                        .id(rs.getLong("card.id"))
+                        .cardId(rs.getString("card_number"))
+                        .account(rs.getLong("account"))
+                        .userId(rs.getLong("user"))
+                        .cardType(rs.getString("name"))
+                        .payLimit(rs.getLong("pay_limit"))
+                        .createDate(rs.getDate("create_date"))
+                        .payAmount(rs.getLong("pay_amount"))
+                        .build()
+                ,cardNumber
+        );
+        return card;
     }
 
     public List<CreditCard> findByUserId(Long userId){
