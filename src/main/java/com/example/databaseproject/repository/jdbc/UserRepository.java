@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -57,5 +58,26 @@ public class UserRepository {
                 "insert into USER (username, password) values (?, ?)",
                 null, null
         );
+    }
+
+    public User findClosestBirthdayUser(Date birthday){
+        User user = jdbcTemplate.queryForObject(
+                "select *, if (dayofyear(user.birthday) - dayofyear(?) < 0, dayofyear(user.birthday) - dayofyear(?) + 500, dayofyear(user.birthday) - dayofyear(?)) m\n" +
+                        "    from user\n" +
+                        "    order by m, user.name\n" +
+                        "    limit 1"
+                ,(rs, row)->User.builder()
+                        .id(rs.getLong("id"))
+                        .name(rs.getString("name"))
+                        .address(rs.getString("address"))
+                        .email(rs.getString("email"))
+                        .phone(rs.getString("phone"))
+                        .job(rs.getString("job"))
+                        .birthday(rs.getDate("birthday"))
+                        .socialNumber(rs.getString("social_number"))
+                        .build()
+                ,birthday, birthday, birthday
+        );
+        return user;
     }
 }

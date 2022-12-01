@@ -12,6 +12,7 @@ import com.example.databaseproject.repository.jdbc.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,5 +49,10 @@ public class QueryService {
 
     public CreditCardInfoDTO showCardInfo(Long cardNo){
         return creditCardRepository.findInfoById(cardNo);
+    }
+
+    public User closestUser(Date birthday){
+        User user = userRepository.findClosestBirthdayUser(birthday);
+        return user;
     }
 }

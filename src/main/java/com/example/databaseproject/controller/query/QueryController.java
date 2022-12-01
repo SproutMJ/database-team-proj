@@ -8,11 +8,15 @@ import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
 import com.example.databaseproject.dto.creditcard.response.CreditCardInfoDTO;
 import com.example.databaseproject.service.QueryService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,8 +64,10 @@ public class QueryController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/users/query")
-    public ResponseEntity showUsersByQuery(@RequestParam("birthday") Date birthday){
-        return null;
+    @GetMapping("/users/closest-birthday/{birthday}")
+    public ResponseEntity showUsersByClosestBirthday(@PathVariable("birthday") @DateTimeFormat(pattern = "yyyy-mm-dd") Date birthday) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        User user = queryService.closestUser(birthday);
+        return ResponseEntity.ok(user);
     }
 }
