@@ -11,7 +11,7 @@ public class Account {
     private String accountId;           // 계좌번호
     private Long userId;                // 유저 ID
     private Date createDate;            // 계좌 발급일
-    private boolean cardApply;          // 카드 신청 여부
+    private Long cardApply;          // 카드 신청 여부
     private Long balance;               // 계좌 잔고
     private Long accountType;           // 계좌 타입
     private String userName;        // 계좌 고객 이름

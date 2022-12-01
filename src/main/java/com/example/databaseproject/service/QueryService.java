@@ -5,6 +5,7 @@ import com.example.databaseproject.domain.creditcard.CreditCard;
 import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
+import com.example.databaseproject.dto.creditcard.response.CreditCardInfoDTO;
 import com.example.databaseproject.repository.jdbc.AccountRepository;
 import com.example.databaseproject.repository.jdbc.CreditCardRepository;
 import com.example.databaseproject.repository.jdbc.UserRepository;
@@ -37,28 +38,15 @@ public class QueryService {
         return creditCards;
     }
 
-    public AccountInfoDTO showAccountByOwnerAndAccountNumber(String owner, Long accountNumber){
-        Account account = accountRepository.findByUsernameAndAccountNumber(owner, accountNumber);
-//        AccountInfoDTO accountInfoDTO = AccountInfoDTO.builder()
-//                .accountId(account.getAccountId())
-//                .createDate(account.getCreateDate())
-//                .cardRegistered(account.isCardRegistered())
-//                .balance(account.getBalance())
-//                .customerName(account.getCustomerName())
-//                .phoneNumber(account.getPhoneNumber())
-//                .email(account.getEmail())
-//                .socialNumber(account.getSocialNumber())
-//                .accountTypeDTO(null)
-//                .accountRecords(null)
-//                .build();
-        return null;
-    }
-
     public List<User> showUsers(Map<String, String> queryType){
         return null;
     }
 
     public AccountInfoDTO showAccountInfo(Long accountNo) {
         return accountRepository.infoFindById(accountNo);
+    }
+
+    public CreditCardInfoDTO showCardInfo(Long cardNo){
+        return creditCardRepository.findInfoById(cardNo);
     }
 }

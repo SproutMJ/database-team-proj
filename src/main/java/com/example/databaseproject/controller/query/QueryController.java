@@ -6,6 +6,7 @@ import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.request.CreateAccountRequestDto;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
+import com.example.databaseproject.dto.creditcard.response.CreditCardInfoDTO;
 import com.example.databaseproject.service.QueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,8 @@ public class QueryController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/cardInfo/{cardNo}")
     public ResponseEntity showCardInfo(@PathVariable Long cardNo){
-        return null;
+        CreditCardInfoDTO cardInfoDTO = queryService.showCardInfo(cardNo);
+        return ResponseEntity.ok(cardInfoDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
