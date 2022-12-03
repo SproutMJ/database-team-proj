@@ -8,6 +8,7 @@ import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
 import com.example.databaseproject.dto.creditcard.request.PayCardDTO;
 import com.example.databaseproject.dto.creditcard.response.CreditCardInfoDTO;
+import com.example.databaseproject.dto.param.During;
 import com.example.databaseproject.service.QueryService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +46,8 @@ public class QueryController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/accountInfo/{accountNo}")
-    public ResponseEntity showAccountInfo(@PathVariable Long accountNo){
-        AccountInfoDTO accountInfoDTO = queryService.showAccountInfo(accountNo);
+    public ResponseEntity showAccountInfo(@PathVariable Long accountNo, During during){
+        AccountInfoDTO accountInfoDTO = queryService.showAccountInfo(accountNo, during);
         return ResponseEntity.ok(accountInfoDTO);
     }
 

@@ -4,9 +4,9 @@ import com.example.databaseproject.domain.account.Account;
 import com.example.databaseproject.domain.creditcard.CreditCard;
 import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
-import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
 import com.example.databaseproject.dto.creditcard.request.PayCardDTO;
 import com.example.databaseproject.dto.creditcard.response.CreditCardInfoDTO;
+import com.example.databaseproject.dto.param.During;
 import com.example.databaseproject.repository.jdbc.AccountRepository;
 import com.example.databaseproject.repository.jdbc.CreditCardRepository;
 import com.example.databaseproject.repository.jdbc.TransactionRepository;
@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -46,8 +45,8 @@ public class QueryService {
         return null;
     }
 
-    public AccountInfoDTO showAccountInfo(Long accountNo) {
-        return accountRepository.infoFindById(accountNo);
+    public AccountInfoDTO showAccountInfo(Long accountNo, During during) {
+        return accountRepository.infoFindById(accountNo, during);
     }
 
     public CreditCardInfoDTO showCardInfo(Long cardNo){

@@ -3,6 +3,7 @@ package com.example.databaseproject.repository.jdbc;
 import com.example.databaseproject.domain.account.Account;
 import com.example.databaseproject.domain.account.AccountRecord;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
+import com.example.databaseproject.dto.param.During;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -93,7 +94,7 @@ public class AccountRepository {
     
     //// TODO: 2022-10-12 추후 추가
 
-    public AccountInfoDTO infoFindById (Long accountNo){
+    public AccountInfoDTO infoFindById (Long accountNo, During during){
         AccountInfoDTO infoDTO = jdbcTemplate.queryForObject(
                 "select * from user, account, account_type\n" +
                         "where account.ID = ? and\n" +
@@ -121,7 +122,8 @@ public class AccountRepository {
                 "select account_record.* from account, account_record\n" +
                         "where account.ID = account_record.deposit_account or\n" +
                         "      account.ID = account_record.withdraw_account and\n" +
-                        "      account.ID = ?\n" +
+                        "      account.ID = ? and\n" +
+                        "      date between ? and ?\n" +
                         "order by account_record.date;",
                 (rs, row)->AccountRecord.builder()
                         .state(((infoDTO.getId() == rs.getLong("deposit_account"))?"입급":"출금"))
@@ -129,7 +131,7 @@ public class AccountRepository {
                         .description(rs.getString("desc"))
                         .transferDate(rs.getTimestamp("date").toLocalDateTime())
                         .build()
-                ,accountNo
+                ,accountNo, during.getBegin(), during.getEnd()
         );
         infoDTO.setAccountRecords(records);
         return infoDTO;
