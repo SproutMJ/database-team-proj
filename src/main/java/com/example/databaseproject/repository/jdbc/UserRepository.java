@@ -62,7 +62,7 @@ public class UserRepository {
 
     public User findClosestBirthdayUser(Date birthday){
         User user = jdbcTemplate.queryForObject(
-                "select *, if (dayofyear(user.birthday) - dayofyear(?) < 0, dayofyear(user.birthday) - dayofyear(?) + 500, dayofyear(user.birthday) - dayofyear(?)) m\n" +
+                "select *, if ((dayofyear(user.birthday) - dayofyear(?)) < 0, dayofyear(user.birthday) - dayofyear(?) + 500, dayofyear(user.birthday) - dayofyear(?)) m\n" +
                         "    from user\n" +
                         "    order by m, user.name\n" +
                         "    limit 1"

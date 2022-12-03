@@ -66,9 +66,9 @@ public class QueryController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/closest-birthday/{birthday}")
-    public ResponseEntity showUsersByClosestBirthday(@PathVariable("birthday") @DateTimeFormat(pattern = "yyyy-mm-dd") Date birthday) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        User user = queryService.closestUser(birthday);
+    public ResponseEntity showUsersByClosestBirthday(@PathVariable("birthday") String birthday) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        User user = queryService.closestUser(dateFormat.parse(birthday));
         return ResponseEntity.ok(user);
     }
 
