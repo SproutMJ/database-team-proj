@@ -4,6 +4,7 @@ import com.example.databaseproject.domain.account.Account;
 import com.example.databaseproject.domain.creditcard.CreditCard;
 import com.example.databaseproject.domain.user.User;
 import com.example.databaseproject.dto.account.request.CreateAccountRequestDto;
+import com.example.databaseproject.dto.account.request.RemittanceDto;
 import com.example.databaseproject.dto.account.response.AccountInfoDTO;
 import com.example.databaseproject.dto.account.response.OwnerAccountsDTO;
 import com.example.databaseproject.dto.creditcard.request.PayCardDTO;
@@ -77,6 +78,13 @@ public class QueryController {
     @PostMapping("/card/pay")
     public ResponseEntity payOfCard(@RequestBody PayCardDTO payCardDTO) throws Exception {
         queryService.payOfCard(payCardDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/account/transfer")
+    public ResponseEntity transferOfAccount(@RequestBody RemittanceDto remittanceDto) throws Exception {
+        queryService.transfer(remittanceDto);
         return ResponseEntity.ok().build();
     }
 }

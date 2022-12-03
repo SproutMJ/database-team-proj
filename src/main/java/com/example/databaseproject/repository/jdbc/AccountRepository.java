@@ -58,6 +58,21 @@ public class AccountRepository {
                 accountId);
     }
 
+    public Account findByAccountNumber(String accountNumber){
+        return jdbcTemplate.queryForObject(
+                "select * from Account where ACCOUNT_ID = ?",
+                (rs, row)-> Account.builder()
+                        .id(rs.getLong("ID"))
+                        .accountId(rs.getString("ACCOUNT_ID"))
+                        .userId(rs.getLong("USER"))
+                        .createDate(rs.getDate("CREATE_DATE"))
+                        .cardApply(rs.getLong("CARD_APPLY"))
+                        .balance(rs.getLong("BALANCE"))
+                        .accountType(rs.getLong("TYPE"))
+                        .build(),
+                accountNumber);
+    }
+
     public Account findByUsernameAndAccountNumber(String username, Long accountNumber){
         List<Account> accounts = jdbcTemplate.query(
                 "select * from Account where USERNAME = ?",

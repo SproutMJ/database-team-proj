@@ -37,17 +37,4 @@ public class AccountManageService {
 //                .build()
 //        );
     }
-
-    public void remittance(RemittanceDto remittanceDto){
-        accountRepository.updateBalance(remittanceDto.getWithdraw(), -remittanceDto.getAmount());
-        accountRepository.updateBalance(remittanceDto.getDeposit(), remittanceDto.getAmount());
-        accountRecordRepository.insertRecord(
-                AccountRecord.builder()
-                        .description(remittanceDto.getDescription())
-                        .amount(remittanceDto.getAmount())
-                        .depositId(remittanceDto.getDeposit())
-                        .withdrawId(remittanceDto.getWithdraw())
-                        .transferDate(LocalDateTime.now())
-                        .build());
-    }
 }

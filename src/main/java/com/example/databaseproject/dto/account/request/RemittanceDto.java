@@ -5,8 +5,8 @@ import lombok.Value;
 
 @Data
 public class RemittanceDto {
-    private Long withdraw;
-    private Long deposit;
+    private String withdraw;
+    private String deposit;
     private Long amount;
     private String description;
 }

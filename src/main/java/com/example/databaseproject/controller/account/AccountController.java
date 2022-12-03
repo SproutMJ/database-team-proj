@@ -20,11 +20,4 @@ public class AccountController {
         accountManageService.createAccount(createAccountRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/transfer")
-    public ResponseEntity remittance(@RequestBody RemittanceDto remittanceDto){
-        accountManageService.remittance(remittanceDto);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 }
