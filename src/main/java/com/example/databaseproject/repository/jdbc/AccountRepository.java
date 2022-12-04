@@ -30,7 +30,7 @@ public class AccountRepository {
                         "        user.id = account.user\n" +
                         "order by account.create_date",
                 (rs, row)-> Account.builder()
-                        .id(rs.getLong("ID"))
+                        .id(rs.getLong("account.ID"))
                         .accountId(rs.getString("ACCOUNT_ID"))
                         .userId(rs.getLong("USER"))
                         .createDate(rs.getDate("CREATE_DATE"))
