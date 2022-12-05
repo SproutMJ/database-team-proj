@@ -109,7 +109,7 @@ public class AccountRepository {
     
     //// TODO: 2022-10-12 추후 추가
 
-    public AccountInfoDTO infoFindById (Long accountNo, During during){
+    public AccountInfoDTO infoFindById (Long accountNo){
         AccountInfoDTO infoDTO = jdbcTemplate.queryForObject(
                 "select * from user, account, account_type\n" +
                         "where account.ID = ? and\n" +
@@ -137,8 +137,7 @@ public class AccountRepository {
                 "select account_record.* from account, account_record\n" +
                         "where (account.ID = account_record.deposit_account or\n" +
                         "      account.ID = account_record.withdraw_account) and\n" +
-                        "      account.ID = ? and\n" +
-                        "      date between ? and ?\n" +
+                        "      account.ID = ?\n" +
                         "order by account_record.date;",
                 (rs, row)->AccountRecord.builder()
                         .state(((infoDTO.getId() == rs.getLong("deposit_account"))?"입급":"출금"))
@@ -146,7 +145,7 @@ public class AccountRepository {
                         .description(rs.getString("desc"))
                         .transferDate(rs.getTimestamp("date").toLocalDateTime())
                         .build()
-                ,accountNo, during.getBegin(), during.getEnd()
+                ,accountNo
         );
         infoDTO.setAccountRecords(records);
         return infoDTO;

@@ -46,8 +46,8 @@ public class QueryService {
         return null;
     }
 
-    public AccountInfoDTO showAccountInfo(Long accountNo, During during) {
-        return accountRepository.infoFindById(accountNo, during);
+    public AccountInfoDTO showAccountInfo(Long accountNo) {
+        return accountRepository.infoFindById(accountNo);
     }
 
     public CreditCardInfoDTO showCardInfo(Long cardNo){
