@@ -47,7 +47,7 @@ public class QueryController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/accountInfo/{accountNo}")
-    public ResponseEntity showAccountInfo(@PathVariable Long accountNo, @RequestBody During during){
+    public ResponseEntity showAccountInfo(@PathVariable Long accountNo, During during){
         AccountInfoDTO accountInfoDTO = queryService.showAccountInfo(accountNo, during);
         return ResponseEntity.ok(accountInfoDTO);
     }
