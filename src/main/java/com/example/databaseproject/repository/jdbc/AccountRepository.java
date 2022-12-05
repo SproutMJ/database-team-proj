@@ -135,8 +135,8 @@ public class AccountRepository {
 
         List<AccountRecord> records = jdbcTemplate.query(
                 "select account_record.* from account, account_record\n" +
-                        "where account.ID = account_record.deposit_account or\n" +
-                        "      account.ID = account_record.withdraw_account and\n" +
+                        "where (account.ID = account_record.deposit_account or\n" +
+                        "      account.ID = account_record.withdraw_account) and\n" +
                         "      account.ID = ? and\n" +
                         "      date between ? and ?\n" +
                         "order by account_record.date;",
