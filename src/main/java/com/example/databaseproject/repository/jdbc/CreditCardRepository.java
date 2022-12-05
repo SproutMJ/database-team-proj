@@ -43,7 +43,7 @@ public class CreditCardRepository {
     public List<CreditCard> findByUserId(Long userId){
         List<CreditCard> creditCards = jdbcTemplate.query(
                 "select * from user, card, card_type\n" +
-                        "where card.ID = ? and\n" +
+                        "where user.ID = ? and\n" +
                         "        user.id = card.user and\n" +
                         "        card_type.ID = card.card_type\n" +
                         "order by card.create_date"
